@@ -429,10 +429,11 @@
 									"url" : "https://api.keen.io/3.0/projects/" + KeenClient.projectId + "/queries/extraction",
 									"data" : {
 										"api_key" : KeenClient.readKey,
-										"event_collection" : "SendGrid Email Events",
+										"event_collection" : "Sendgrid Email Events",
 										"filters" : [filter],
-									},
-									"context" : "#extraction_result"
+									}
+								}).done( function(data) {
+									$("#extraction_result").text(JSON.stringify(data));
 								});
 							});
 						});
