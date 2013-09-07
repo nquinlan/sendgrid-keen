@@ -210,11 +210,9 @@
 							// Best practice is to do this in parallel rather than in series. For readibility's sake it's in parallel.
 							//    An example of the code in series can be seen at: https://gist.github.com/nquinlan/87deff73c576540b88ad
 							openMetric.getResponse(function(response){
-									console.log(response);
 									// Get the number of opens by counting the email ids returned
 									var openedNumber = response.result.length;
 									deliveredMetric.getResponse(function(response){
-										console.log(response);
 										var deliveredNumber = response.result;
 										// To initialize the Keen.PieChart method, we must use one of our Keen.Metrics, despite not using its result.
 										var openRatePie = new Keen.PieChart(deliveredMetric, {
