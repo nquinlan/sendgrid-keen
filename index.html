@@ -55,6 +55,7 @@
 				background: #eee;
 				font-size: 1.6em;
 				padding: 10px 10%;
+				display: none;
 			}
 			#use.affix-top {
 				position: relative;
@@ -69,9 +70,15 @@
 			#use.affix-bottom {
 				position: absolute;
 			}
+			.unconfigured #use {
+				display: block;
+			}
 			.container-fixed {
 				max-width: 960px;
 				margin: 0 auto;
+			}
+			.unconfigured .container-fixed {
+				opacity: .2;
 			}
 			.info {
 				min-height: 400px;
@@ -133,13 +140,14 @@
 		    			});
 		    			unique_arg =  $("#keen-unique").val();
 		    			Keen.runChartsReadyHandlers();
+		    			$("body").removeClass("unconfigured");
 		    		}
 		    	});
 		    	$('#keen-unique').tooltip({container: 'body'});
 		    });
 		</script>
 	</head>
-	<body>
+	<body class="unconfigured">
 		<header>
 			<h1>SendGrid <span>+</span> Keen.io Demo Integration</h1>
 			<p class="muted">Note: Most demos assume you've given each email a SendGrid <code>unique_arg</code>, e.g. <code>my-unique-id</code> with a unique identifier in each. <em><code>my-unique-id</code> can be changed below.</em></p>
