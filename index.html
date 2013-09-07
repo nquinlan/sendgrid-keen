@@ -183,7 +183,7 @@
 							var openMetric = new Keen.Metric("Sendgrid Email Events", {
 								analysisType: "count",
 								targetProperty: "event",
-								// Note: This assumes you've given each email a SendGrid unique arg, e.g. "my-unique-id" with a unique identifier in each.
+								// Note: This assumes you've given each email a SendGrid unique_arg, e.g. "my-unique-id" with a unique identifier in each.
 								groupBy: unique_arg,
 								filter: [
 									{
@@ -247,6 +247,7 @@
 					<div id="delivery-funnel" class="visualization"></div>
 					<script type="text/javascript">
 						Keen.onChartsReady(function () {
+							// To make a funnel we must initiate each step a visitor must take
 							var processedStep = new Keen.Step(
 								"Sendgrid Email Events",
 								{
@@ -302,9 +303,9 @@
 								}
 							);
 
-							//Instantiate a new Keen.Funnel for those steps.
+							// Now, we instantiate a new Keen.Funnel for those steps.
 							var myFunnel = new Keen.Funnel([processedStep, deliveredStep, openStep, clickStep], {
-								// Note: This assumes you've given each email a SendGrid unique arg, e.g. "my-unique-id" with a unique identifier in each.
+								// Note: This assumes you've given each email a SendGrid unique_arg, e.g. "my-unique-id" with a unique identifier in each.
 								actorProperty: unique_arg
 							});
 							myFunnel.draw(
@@ -407,23 +408,20 @@
 					</div>
 					<script type="text/javascript">
 						$(function () {
-							// Make jQuery Tabs Work
-							$('#extraction-tabs a').click(function (e) {
-								e.preventDefault()
-								$(this).tab('show')
-							});
-
 							$("#extraction-tab-content form").submit(function (e) {
 								e.preventDefault();
+								// We're going to setup the filter here
 								filter = {
 									"operator"			: "eq",
 									"property_value"	: $(".tab-pane.active input").val()
 								};
+								// Based on which tab is active, we'll setup the filter
 								if($(".tab-pane.active").attr("id", "by-email")){
 									filter.property_name = "email";
 								}else{
 									filter.property_name = unique_arg;
 								}
+								// Here we use a jQuery AJAX request to hit the Keen extraction endpoint
 								$.ajax({
 									"method" : "GET",
 									"url" : "https://api.keen.io/3.0/projects/" + KeenClient.projectId + "/queries/extraction",
@@ -436,6 +434,13 @@
 									$("#extraction_result").text(JSON.stringify(data));
 								});
 							});
+
+							// Make jQuery Tabs Work
+							$('#extraction-tabs a').click(function (e) {
+								e.preventDefault()
+								$(this).tab('show')
+							});
+
 						});
 					</script>
 				</figure>
