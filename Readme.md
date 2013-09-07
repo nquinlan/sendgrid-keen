@@ -1,0 +1,2 @@
+# Using SendGrid + Keen.io
+This repository demos how to use [SendGrid](http://sendgrid.com) and [Keen.io](http://keen.io) to monitor and analyze emails. You can play around with the visualizations created by going to the repository's Github Pages Page: <http://github.io/nquinlan/sendgrid-keen>
