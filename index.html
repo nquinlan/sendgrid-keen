@@ -122,29 +122,7 @@
 		<!-- It allows you to add your credentials after Keen has been loaded. -->
 		<!-- In a real enviroment, you'd call Keen.configure, immediately after loading Keen. -->
 		<script data-demo-only="seriously you do not need this">
-			Keen.oldRunChartsReadyHandlers = Keen.runChartsReadyHandlers;
-			Keen.runChartsReadyHandlers = function() {
-				if(typeof KeenClient == "object" && KeenClient.readKey){
-					Keen.oldRunChartsReadyHandlers();
-				}
-			};
-			$(function () {
-				$("#settings-form").submit(function (e) {
-					e.preventDefault();
-					var keenProjectId = $("#keen-project").val(),
-						keenReadKey = $("#keen-read-key").val();
-					if(keenProjectId && keenReadKey){
-						KeenClient = Keen.configure({
-							projectId: keenProjectId,
-							readKey: keenReadKey
-						});
-						unique_arg =  $("#keen-unique").val();
-						Keen.runChartsReadyHandlers();
-						$("body").removeClass("unconfigured");
-					}
-				});
-				$('#keen-unique').tooltip({container: 'body'});
-			});
+			Keen.oldRunChartsReadyHandlers=Keen.runChartsReadyHandlers;Keen.runChartsReadyHandlers=function(){if(typeof KeenClient=="object"&&KeenClient.readKey){Keen.oldRunChartsReadyHandlers()}};$(function(){$("#settings-form").submit(function(e){e.preventDefault();var t=$("#keen-project").val(),n=$("#keen-read-key").val();if(t&&n){KeenClient=Keen.configure({projectId:t,readKey:n});unique_arg=$("#keen-unique").val();Keen.runChartsReadyHandlers();$("body").removeClass("unconfigured")}});$("#keen-unique").tooltip({container:"body"})})
 		</script>
 	</head>
 	<body class="unconfigured">
@@ -428,7 +406,7 @@
 									"data" : {
 										"api_key" : KeenClient.readKey,
 										"event_collection" : "Sendgrid Email Events",
-										"filters" : [filter],
+										"filters" : [filter]
 									}
 								}).done( function(data) {
 									$("#extraction_result").text(JSON.stringify(data));
